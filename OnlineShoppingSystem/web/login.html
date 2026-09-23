@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Shopping Login</title>
+</head>
+
+<body>
+
+<h2>Online Shopping Login</h2>
+
+Email:
+<input type="text" id="email">
+
+<br><br>
+
+Password:
+<input type="password" id="password">
+
+<br><br>
+
+<button id="loginBtn" onclick="login()">Login</button>
+
+<p id="message"></p>
+
+
+<script>
+
+    function login(){
+
+    let email=document.getElementById("email").value;
+    let password=document.getElementById("password").value;
+
+
+    if(email=="sushenc87@gmail.com" && password=="12345"){
+
+    window.location.href="product.html";
+
+    }
+    else{
+
+    document.getElementById("message").innerHTML=
+    "Invalid Login";
+
+    }
+
+    }
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Kartly — Product Catalog</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body class="catalog-body">
+
+<header class="topbar">
+    <div class="brand">Kartly</div>
+
+    <form class="search-form" method="get" th:action="@{/catalog}">
+        <input type="hidden" name="category" th:value="${selectedCategory}">
+        <input type="hidden" name="brand" th:value="${selectedBrand}">
+        <input type="hidden" name="minPrice" th:value="${minPrice}">
+        <input type="hidden" name="maxPrice" th:value="${maxPrice}">
+        <input type="text" name="query" class="search-input" placeholder="Search products…" th:value="${query}">
+    </form>
+
+    <div class="topbar-icons">
+        <span class="icon-btn" title="Wishlist">&#9825;</span>
+        <span class="icon-btn" title="Cart">&#128722;</span>
+        <a th:href="@{/logout}" class="logout-link">Log out</a>
+    </div>
+</header>
+
+<div class="catalog-layout">
+
+    <aside class="filter-sidebar">
+        <form method="get" th:action="@{/catalog}">
+            <input type="hidden" name="query" th:value="${query}">
+
+            <h2 class="filters-title">Filters</h2>
+
+            <label class="filter-heading">Category</label>
+            <select name="category" class="filter-select">
+                <option th:each="c : ${categories}"
+                        th:value="${c}"
+                        th:text="${c}"
+                        th:selected="${c == selectedCategory}"></option>
+            </select>
+
+            <label class="filter-heading">Brand</label>
+            <select name="brand" class="filter-select">
+                <option th:each="b : ${brands}"
+                        th:value="${b}"
+                        th:text="${b}"
+                        th:selected="${b == selectedBrand}"></option>
+            </select>
+
+            <label class="filter-heading">Price range</label>
+            <div class="price-row">
+                <div class="price-field">
+                    <span class="price-label">Low</span>
+                    <input type="number" name="minPrice" th:value="${minPrice}" step="50" min="0" max="10000">
+                </div>
+                <div class="price-field">
+                    <span class="price-label">High</span>
+                    <input type="number" name="maxPrice" th:value="${maxPrice}" step="50" min="0" max="10000">
+                </div>
+            </div>
+
+            <button type="submit" class="btn-primary">Apply Filters</button>
+            <a th:href="@{/catalog}" class="btn-secondary">Clear</a>
+        </form>
+    </aside>
+
+    <main class="results-area">
+        <p class="result-count" th:text="${resultCount} + ' product' + (${resultCount} == 1 ? '' : 's') + ' found'"></p>
+
+        <div class="product-grid">
+            <div class="product-card" th:each="p : ${products}">
+                <div class="product-image">
+                    <img th:src="@{'/images/' + ${p.image}}" th:alt="${p.name}"
+                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="no-image" style="display:none;">No Image</div>
+                </div>
+
+                <div class="product-info">
+                    <span class="product-brand" th:text="${#strings.toUpperCase(p.brand)}"></span>
+                    <h3 class="product-name" th:text="${p.name}"></h3>
+
+                    <div class="price-row-card">
+                        <span class="product-price" th:text="'$' + ${#numbers.formatDecimal(p.price, 1, 2)}"></span>
+                        <span th:class="'stock-pill ' + ${p.stockClass}" th:text="${p.stockText}"></span>
+                    </div>
+
+                    <button class="btn-primary btn-full" th:disabled="${p.outOfStock}"
+                            th:text="${p.outOfStock} ? 'Out of Stock' : 'Add to Cart'"></button>
+                    <!-- TODO: wire to CartDAO.addToCart(...) once cart page exists -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+</div>
+
+</body>
+</html>

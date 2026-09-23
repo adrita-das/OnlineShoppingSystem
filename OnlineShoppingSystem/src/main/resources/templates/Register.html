@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create account — Kartly</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<div class="split">
+    <div class="form-panel">
+        <div class="brand">Kartly</div>
+
+        <p class="kicker">Let's get started</p>
+        <h1>Create your account</h1>
+
+        <div class="banner error" th:if="${error}" th:text="${error}" id="errorMessage"></div>
+
+        <form method="post" th:action="@{/register}" id="registerForm" novalidate>
+            <label for="name">Full name</label>
+            <input type="text" id="name" name="name" th:value="${name}" />
+
+            <label for="email">Email</label>
+            <input type="text" id="email" name="email" th:value="${email}" autocomplete="email" />
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" autocomplete="new-password" />
+            <p class="hint">8&ndash;20 characters, with a letter and a number.</p>
+
+            <label for="confirmPassword">Confirm password</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" autocomplete="new-password" />
+
+            <button type="submit" id="registerBtn" class="btn-primary">Create account</button>
+        </form>
+
+        <p class="alt">Already have an account? <a th:href="@{/login}" id="signInLink">Sign in</a></p>
+    </div>
+    <div class="art-panel">
+        <div class="art-quote">
+            <p>Join in a minute,</p>
+            <p>shop for years.</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

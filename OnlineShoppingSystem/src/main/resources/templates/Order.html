@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Kartly — Place Order</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+
+<div class="split">
+    <div class="form-panel">
+        <div class="brand">Kartly</div>
+
+        <p class="kicker">Checkout</p>
+        <h1>Place order</h1>
+
+        <div class="banner error" th:if="${banner}" th:text="${banner}"></div>
+        <div class="banner" style="background:#e0f6ef;color:var(--ok);" th:if="${bannerOk}" th:text="${bannerOk}"></div>
+
+        <form method="post" th:action="@{/order}">
+
+            <label>Product name</label>
+            <input type="text" name="productName" th:value="${productName}">
+            <p class="error-text" th:if="${productError}" th:text="${productError}"></p>
+
+            <label>Quantity</label>
+            <input type="text" name="quantity" th:value="${quantity}">
+            <p class="error-text" th:if="${quantityError}" th:text="${quantityError}"></p>
+
+            <label>Total price</label>
+            <input type="text" name="total" th:value="${total}">
+            <p class="error-text" th:if="${totalError}" th:text="${totalError}"></p>
+
+            <label>Payment status</label>
+            <select name="payment" class="filter-select">
+                <option value="Paid" th:selected="${payment == 'Paid'}">Paid</option>
+                <option value="Pending" th:selected="${payment == 'Pending'}">Pending</option>
+            </select>
+
+            <button type="submit" class="btn-primary" style="margin-top:22px;">Place order</button>
+        </form>
+
+        <p class="alt"><a th:href="@{/catalog}">Back to catalog</a></p>
+    </div>
+
+    <div class="art-panel">
+        <div class="art-quote">
+            <p>One tap,</p>
+            <p>on its way.</p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

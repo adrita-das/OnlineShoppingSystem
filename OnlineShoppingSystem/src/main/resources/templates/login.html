@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign in — Kartly</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<div class="split">
+    <div class="form-panel">
+        <div class="brand">Kartly</div>
+
+        <p class="kicker">Welcome back</p>
+        <h1>Sign in</h1>
+
+        <div class="banner error" th:if="${error}" th:text="${error}" id="errorMessage"></div>
+
+        <form method="post" th:action="@{/login}" id="loginForm" novalidate>
+            <label for="email">Email</label>
+            <input type="text" id="email" name="email" th:value="${email}" autocomplete="email" />
+
+            <div class="field-row">
+                <label for="password">Password</label>
+                <a href="#" class="link-small">Forgot password?</a>
+            </div>
+            <input type="password" id="password" name="password" autocomplete="current-password" />
+            <p class="hint">8&ndash;20 characters, with a letter and a number.</p>
+
+            <button type="submit" id="loginBtn" class="btn-primary">Sign in</button>
+        </form>
+
+        <p class="alt">Don't have an account? <a th:href="@{/register}" id="createAccountLink">Create one</a></p>
+    </div>
+    <div class="art-panel">
+        <div class="art-quote">
+            <p>Everything in your cart,</p>
+            <p>waiting where you left it.</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
