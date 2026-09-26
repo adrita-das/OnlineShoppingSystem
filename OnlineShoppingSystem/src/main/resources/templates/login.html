@@ -21,8 +21,9 @@
 
             <div class="field-row">
                 <label for="password">Password</label>
-                <a href="#" class="link-small">Forgot password?</a>
+                <a th:href="@{/forgot-password}" class="link-small">Forgot password?</a>
             </div>
+
             <input type="password" id="password" name="password" autocomplete="current-password" />
             <p class="hint">8&ndash;20 characters, with a letter and a number.</p>
 
